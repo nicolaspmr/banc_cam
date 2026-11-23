@@ -10,8 +10,8 @@ Deux mesures à faire :
                             crée un faux déplacement : c'est la limite de résolution du banc)
   --etiquette tapotement  : tapotez la table / la caméra -> vibrations à mesurer
 
-Lien avec le module 2 : si l'étalonnage existe, on convertit les pixels en ANGLES (mrad),
-grandeur utilisée pour spécifier la stabilisation d'une charge utile optronique.
+Option : si un étalonnage caméra existe, on convertit les pixels en ANGLES (mrad), grandeur
+utilisée pour spécifier la stabilisation d'une charge utile optronique. Sinon : résultats en pixels.
   angle (rad) ≈ déplacement (px) / focale (px)   (petits angles)
 
 Limite fondamentale (théorème de Shannon-Nyquist) : à 30 i/s, on ne voit correctement que les
@@ -80,7 +80,7 @@ def main():
         return
     t, dx, dy = np.array(temps), np.array(dx), np.array(dy)
 
-    # --- Conversion en angles si l'étalonnage (module 2) existe --------------------------
+    # --- Conversion en angles si un étalonnage caméra existe --------------------------
     etal = resultats.lire_etalonnage()
     if etal:
         fx, fy = etal["fx"], etal["fy"]
@@ -92,7 +92,7 @@ def main():
             fx, fy = fx * echelle, fy * echelle
         ax_mrad, ay_mrad = dx / fx * 1000, dy / fy * 1000
     else:
-        print("  Pas d'étalonnage (module 2) : résultats en pixels seulement.")
+        print("  Pas d'étalonnage caméra : résultats en pixels seulement.")
 
     # --- Analyse temporelle ----------------------------------------------------------------
     dxc, dyc = dx - dx.mean(), dy - dy.mean()        # on retire la position moyenne

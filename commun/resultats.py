@@ -26,7 +26,7 @@ def dossier(module):
 def ecrire_resume(module, etiquette, valeurs):
     """
     Écrit resultats/<module>/resume_<etiquette>.json.
-    `valeurs` est un dictionnaire de chiffres clés, par ex. {"latence_moyenne_ms": 142.3}.
+    `valeurs` est un dictionnaire de chiffres clés, par ex. {"fps_mesure": 30.1}.
     On ajoute automatiquement la date et la machine : une mesure sans ses conditions ne vaut rien.
     """
     contenu = {
@@ -53,8 +53,9 @@ def lire_resumes(module=None):
 
 def lire_etalonnage():
     """
-    Relit le résultat du module 2 (focale, distorsion). Renvoie None s'il n'existe pas encore.
-    Utilisé par le module 5 pour convertir des pixels en angles.
+    Relit un étalonnage caméra (focale, distorsion) s'il existe. Renvoie None sinon.
+    Utilisé en option par le module 5 pour convertir des pixels en angles.
+    (Le module d'étalonnage a été retiré du banc : sans lui, le module 5 travaille en pixels.)
     """
     chemin = config.DOSSIER_RESULTATS / "module2_etalonnage" / "etalonnage.json"
     if not chemin.exists():

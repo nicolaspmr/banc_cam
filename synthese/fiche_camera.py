@@ -18,8 +18,6 @@ from commun import resultats
 # Titre lisible de chaque module, dans l'ordre de la fiche
 TITRES = {
     "module0_chaine": "Chaîne vidéo (cadence, gigue, pertes)",
-    "module1_latence": "Latence glass-to-glass",
-    "module2_etalonnage": "Géométrie (étalonnage)",
     "module3_debit_qualite": "Débit / qualité H.264",
     "module4_bruit": "Bruit",
     "module5_vibrations": "Stabilité / vibrations",
@@ -65,7 +63,6 @@ def main():
     lignes += ["## Limites connues", "",
                "- La webcam applique un traitement interne (exposition auto, gamma, débruitage, MJPEG) : "
                "les mesures portent sur toute la chaîne, pas sur le capteur brut.",
-               "- Latence : résolution limitée par la période image (~33 ms à 30 i/s), d'où la répétition des mesures.",
                "- Vibrations : fréquences observables < fréquence image / 2 (Nyquist).", ""]
 
     chemin = config.DOSSIER_RESULTATS / "fiche_camera.md"

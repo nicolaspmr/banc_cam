@@ -11,7 +11,6 @@
 #   ./emetteur/lancer_emetteur.sh                  -> profil "standard", 3000 kbit/s
 #   ./emetteur/lancer_emetteur.sh standard 1000    -> profil standard, 1000 kbit/s
 #   ./emetteur/lancer_emetteur.sh sans_perte       -> H.264 sans perte (modules 3 et 4)
-#   ./emetteur/lancer_emetteur.sh lent 3000        -> sans tune=zerolatency (comparaison module 1)
 # Arrêt : Ctrl+C
 # =============================================================================
 
@@ -40,12 +39,6 @@ case "$PROFIL" in
     # key-int-max=30 : une I-frame (image complète) au moins toutes les 30 images = 1 s
     ENC="x264enc tune=zerolatency speed-preset=ultrafast bitrate=$DEBIT key-int-max=30"
     ;;
-  lent)
-    # Même chose SANS tune=zerolatency : l'encodeur garde des images en avance (lookahead,
-    # B-frames) -> meilleure compression mais plus de latence. Pour comparer au module 1.
-    CAPS="video/x-raw,format=NV12,width=1280,height=720,framerate=30/1"
-    ENC="x264enc speed-preset=medium bitrate=$DEBIT key-int-max=30"
-    ;;
   sans_perte)
     # H.264 SANS PERTE (quantizer=0) : l'image décodée est identique bit à bit à l'image encodée.
     # Indispensable pour mesurer le bruit (module 4) ou faire une référence (module 3) :
@@ -55,7 +48,7 @@ case "$PROFIL" in
     ENC="x264enc pass=quant quantizer=0 speed-preset=ultrafast tune=zerolatency key-int-max=30"
     ;;
   *)
-    echo "Profil inconnu : $PROFIL (choix : standard, lent, sans_perte)"; exit 1 ;;
+    echo "Profil inconnu : $PROFIL (choix : standard, sans_perte)"; exit 1 ;;
 esac
 
 echo "Profil $PROFIL -> envoi vers $IP_WSL:$PORT   (Ctrl+C pour arrêter)"

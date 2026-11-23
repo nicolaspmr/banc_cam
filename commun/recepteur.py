@@ -55,7 +55,7 @@ class Recepteur:
         port                   : port UDP d'écoute
         format                 : "GRAY8" (niveaux de gris, 1 octet/pixel) ou "BGR" (couleur, format d'OpenCV)
         garder_que_la_derniere : True  -> l'appsink ne garde que l'image la plus récente et jette les autres.
-                                          Idéal pour mesurer la latence (on veut l'image la plus fraîche).
+                                          Idéal pour un aperçu en direct (on veut l'image la plus fraîche).
                                  False -> l'appsink garde jusqu'à 300 images en file d'attente.
                                           Idéal pour enregistrer TOUTES les images (bruit, vibrations).
         latence_ms             : latence du jitterbuffer (voir config.py)
