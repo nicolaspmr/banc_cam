@@ -1,5 +1,5 @@
 """
-module4_bruit/mesure_bruit.py — Bruit temporel, bruit spatial fixe (FPN) et courbe de transfert.
+module3_bruit/mesure_bruit.py — Bruit temporel, bruit spatial fixe (FPN) et courbe de transfert.
 
 À LANCER AVEC L'ÉMETTEUR EN PROFIL SANS PERTE : ./emetteur/lancer_emetteur.sh sans_perte
 (la compression H.264 classique lisse le bruit et fausserait tout).
@@ -15,14 +15,13 @@ puis pour chaque pixel on calcule sa moyenne et sa variance dans le temps.
 
 Astuce pour contourner l'exposition automatique de la webcam : au lieu de faire varier
 l'éclairage (l'expo auto compenserait), on filme UNE scène fixe contenant beaucoup de niveaux
-de gris (option --mire : une échelle de gris affichée à l'écran, filmée via le miroir),
+de gris (une étagère, un mur avec une ombre, un objet clair devant un fond sombre...),
 et on regroupe les pixels par niveau moyen. Toute la courbe sort d'une seule acquisition,
 avec un réglage d'exposition constant.
 
 Lancement :
-    python3 -m module4_bruit.mesure_bruit --etiquette noir      (objectif masqué)
-    python3 -m module4_bruit.mesure_bruit --etiquette scene     (scène fixe texturée)
-    python3 -m module4_bruit.mesure_bruit --etiquette mire --mire
+    python3 -m module3_bruit.mesure_bruit --etiquette noir      (objectif masqué)
+    python3 -m module3_bruit.mesure_bruit --etiquette scene     (scène fixe texturée)
 """
 
 import argparse
@@ -33,31 +32,16 @@ import numpy as np
 from commun.recepteur import Recepteur
 from commun import resultats
 
-MODULE = "module4_bruit"
-
-
-def afficher_mire_gris():
-    """Affiche une échelle de 8 niveaux de gris (bandes verticales) dans une fenêtre."""
-    niveaux = np.linspace(0, 255, 8).astype(np.uint8)        # 0, 36, 73 ... 255
-    # np.repeat répète chaque niveau 100 fois en largeur -> bandes de 100 px
-    ligne = np.repeat(niveaux, 100)
-    mire = np.tile(ligne, (600, 1))                           # 600 lignes identiques
-    cv2.namedWindow("mire_gris", cv2.WINDOW_NORMAL)
-    cv2.imshow("mire_gris", mire)
-    cv2.waitKey(500)                                          # laisse le temps de s'afficher
+MODULE = "module3_bruit"
 
 
 def main():
     parser = argparse.ArgumentParser(description="Mesure du bruit capteur.")
-    parser.add_argument("--etiquette", default="scene", help="nom de la condition (noir, scene, mire...)")
+    parser.add_argument("--etiquette", default="scene", help="nom de la condition (noir, scene...)")
     parser.add_argument("--images", type=int, default=100, help="nombre d'images enregistrées")
     parser.add_argument("--ignorer", type=int, default=60, help="images ignorées au début (expo auto)")
-    parser.add_argument("--mire", action="store_true", help="afficher une échelle de gris à filmer")
     args = parser.parse_args()
     dossier = resultats.dossier(MODULE)
-
-    if args.mire:
-        afficher_mire_gris()
 
     images = []
     with Recepteur(format="GRAY8", garder_que_la_derniere=False) as rec:
@@ -65,14 +49,11 @@ def main():
         print(f"NE BOUGEZ PLUS RIEN. Stabilisation ({args.ignorer} images) puis {args.images} images...")
         while len(images) < args.images:
             img = rec.lire(timeout_s=2.0)
-            if args.mire:
-                cv2.waitKey(1)                                # garde la fenêtre mire vivante
             if img is None:
                 print("Flux interrompu.")
                 break
             if img.numero >= args.ignorer:
                 images.append(img.pixels)
-    cv2.destroyAllWindows()
     if len(images) < 10:
         print("Pas assez d'images.")
         return

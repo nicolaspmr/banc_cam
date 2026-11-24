@@ -4,4 +4,3 @@ __pycache__/
 
 # Données brutes lourdes : on ne versionne que les résumés, CSV et graphiques
 resultats/**/*.npy
-resultats/module2_etalonnage/images*/

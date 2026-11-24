@@ -10,7 +10,7 @@
 # Utilisation (depuis le dossier banc_cam) :
 #   ./emetteur/lancer_emetteur.sh                  -> profil "standard", 3000 kbit/s
 #   ./emetteur/lancer_emetteur.sh standard 1000    -> profil standard, 1000 kbit/s
-#   ./emetteur/lancer_emetteur.sh sans_perte       -> H.264 sans perte (modules 3 et 4)
+#   ./emetteur/lancer_emetteur.sh sans_perte       -> H.264 sans perte (modules 2 et 3)
 # Arrêt : Ctrl+C
 # =============================================================================
 
@@ -41,7 +41,7 @@ case "$PROFIL" in
     ;;
   sans_perte)
     # H.264 SANS PERTE (quantizer=0) : l'image décodée est identique bit à bit à l'image encodée.
-    # Indispensable pour mesurer le bruit (module 4) ou faire une référence (module 3) :
+    # Indispensable pour mesurer le bruit (module 3) ou faire une référence (module 2) :
     # sinon la compression lisse le bruit et fausse la mesure.
     # 640x480 seulement : en sans perte le débit est énorme (plusieurs dizaines de Mbit/s).
     CAPS="video/x-raw,format=NV12,width=640,height=480,framerate=30/1"

@@ -57,7 +57,7 @@ class Recepteur:
         garder_que_la_derniere : True  -> l'appsink ne garde que l'image la plus récente et jette les autres.
                                           Idéal pour un aperçu en direct (on veut l'image la plus fraîche).
                                  False -> l'appsink garde jusqu'à 300 images en file d'attente.
-                                          Idéal pour enregistrer TOUTES les images (bruit, vibrations).
+                                          Idéal pour enregistrer TOUTES les images (chaîne, référence, bruit).
         latence_ms             : latence du jitterbuffer (voir config.py)
         """
         self.format = format

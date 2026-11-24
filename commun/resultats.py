@@ -50,14 +50,3 @@ def lire_resumes(module=None):
     return [json.loads(p.read_text(encoding="utf-8"))
             for p in sorted(config.DOSSIER_RESULTATS.glob(motif))]
 
-
-def lire_etalonnage():
-    """
-    Relit un étalonnage caméra (focale, distorsion) s'il existe. Renvoie None sinon.
-    Utilisé en option par le module 5 pour convertir des pixels en angles.
-    (Le module d'étalonnage a été retiré du banc : sans lui, le module 5 travaille en pixels.)
-    """
-    chemin = config.DOSSIER_RESULTATS / "module2_etalonnage" / "etalonnage.json"
-    if not chemin.exists():
-        return None
-    return json.loads(chemin.read_text(encoding="utf-8"))

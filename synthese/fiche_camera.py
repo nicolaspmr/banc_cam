@@ -17,16 +17,15 @@ from commun import resultats
 
 # Titre lisible de chaque module, dans l'ordre de la fiche
 TITRES = {
-    "module0_chaine": "Chaîne vidéo (cadence, gigue, pertes)",
-    "module3_debit_qualite": "Débit / qualité H.264",
-    "module4_bruit": "Bruit",
-    "module5_vibrations": "Stabilité / vibrations",
+    "module1_chaine": "Chaîne vidéo (cadence, gigue, pertes)",
+    "module2_debit_qualite": "Débit / qualité H.264",
+    "module3_bruit": "Bruit",
 }
 
 
 def formater(valeur):
     """Met une valeur en forme pour un tableau Markdown."""
-    if isinstance(valeur, list):            # ex. la liste des mesures du module 3
+    if isinstance(valeur, list):            # ex. la liste des mesures du module 2
         return "voir détail"
     return str(valeur)
 
@@ -53,7 +52,7 @@ def main():
                 lignes.append(f"| {cle} | {formater(val)} |")
             lignes.append("")
             # Détail spécial pour la courbe débit/qualité (liste de mesures)
-            if module == "module3_debit_qualite" and "mesures" in r["valeurs"]:
+            if module == "module2_debit_qualite" and "mesures" in r["valeurs"]:
                 lignes += ["| Débit cible (kbit/s) | Débit réel (kbit/s) | PSNR moyen (dB) | SSIM |",
                            "| --- | --- | --- | --- |"]
                 for m in r["valeurs"]["mesures"]:
@@ -63,7 +62,7 @@ def main():
     lignes += ["## Limites connues", "",
                "- La webcam applique un traitement interne (exposition auto, gamma, débruitage, MJPEG) : "
                "les mesures portent sur toute la chaîne, pas sur le capteur brut.",
-               "- Vibrations : fréquences observables < fréquence image / 2 (Nyquist).", ""]
+               ""]
 
     chemin = config.DOSSIER_RESULTATS / "fiche_camera.md"
     chemin.write_text("\n".join(lignes), encoding="utf-8")

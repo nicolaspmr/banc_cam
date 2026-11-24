@@ -1,5 +1,5 @@
 """
-module3_debit_qualite/enregistre_reference.py — Enregistre une séquence de RÉFÉRENCE.
+module2_debit_qualite/enregistre_reference.py — Enregistre une séquence de RÉFÉRENCE.
 
 La référence doit être aussi fidèle que possible à ce que voit le capteur : lancez l'émetteur
 en profil SANS PERTE (./emetteur/lancer_emetteur.sh sans_perte). Sinon, on comparerait des
@@ -9,7 +9,7 @@ Conseil de scène : une scène texturée (bureau, livres, plante) avec un peu de
 (bougez lentement la main). Le contenu change tout : une scène fixe et uniforme se compresse
 presque sans perte même à bas débit, une scène détaillée et mobile non.
 
-Lancement :  python3 -m module3_debit_qualite.enregistre_reference --images 150
+Lancement :  python3 -m module2_debit_qualite.enregistre_reference --images 150
 """
 
 import argparse
@@ -19,7 +19,7 @@ import numpy as np
 from commun.recepteur import Recepteur
 from commun import resultats
 
-MODULE = "module3_debit_qualite"
+MODULE = "module2_debit_qualite"
 
 
 def main():

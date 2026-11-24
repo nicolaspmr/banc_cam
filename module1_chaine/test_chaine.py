@@ -1,5 +1,5 @@
 """
-module0_chaine/test_chaine.py — Vérifier et caractériser la chaîne vidéo elle-même.
+module1_chaine/test_chaine.py — Vérifier et caractériser la chaîne vidéo elle-même.
 
 Question posée : "le flux arrive-t-il, à quelle cadence réelle, avec quelle régularité ?"
 C'est la première mesure à faire : si la chaîne perd des images ou a une cadence irrégulière,
@@ -13,7 +13,7 @@ Ce que le script mesure pendant DUREE secondes :
 Il écrit un CSV (une ligne par image) + un résumé JSON pour la fiche caméra.
 
 Lancement (depuis banc_cam/) :
-    python3 -m module0_chaine.test_chaine --duree 30 --etiquette standard_3000k
+    python3 -m module1_chaine.test_chaine --duree 30 --etiquette standard_3000k
 """
 
 import argparse          # lecture des options en ligne de commande (--duree, --etiquette)
@@ -24,7 +24,7 @@ import numpy as np
 from commun.recepteur import Recepteur
 from commun import resultats
 
-MODULE = "module0_chaine"
+MODULE = "module1_chaine"
 
 
 def main():

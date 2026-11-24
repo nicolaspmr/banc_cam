@@ -1,5 +1,5 @@
 """
-module4_bruit/courbe_transfert.py — Trace et ajuste la courbe de transfert (variance vs niveau).
+module3_bruit/courbe_transfert.py — Trace et ajuste la courbe de transfert (variance vs niveau).
 
 Relit les courbe_<etiquette>.npy produits par mesure_bruit.py et trace, pour chaque acquisition :
   variance temporelle (DN²) en fonction du niveau moyen (DN).
@@ -12,7 +12,7 @@ Interprétation :
     Une courbe non linéaire est donc un RÉSULTAT : elle prouve que l'on ne mesure pas le capteur
     brut mais toute la chaîne. C'est exactement ce qu'il faut savoir dire en entretien.
 
-Lancement :  python3 -m module4_bruit.courbe_transfert
+Lancement :  python3 -m module3_bruit.courbe_transfert
 """
 
 import matplotlib
@@ -22,7 +22,7 @@ import numpy as np                # noqa: E402
 
 from commun import resultats      # noqa: E402
 
-MODULE = "module4_bruit"
+MODULE = "module3_bruit"
 
 
 def main():

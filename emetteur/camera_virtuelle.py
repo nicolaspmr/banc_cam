@@ -1,7 +1,7 @@
 """
 emetteur/camera_virtuelle.py — Une caméra SIMULÉE dont on connaît le bruit (vérité terrain).
 
-Sert à valider le module 4 : si mesure_bruit.py + courbe_transfert.py retrouvent le gain
+Sert à valider le module 3 : si mesure_bruit.py + courbe_transfert.py retrouvent le gain
 et le bruit de lecture qu'on a programmés ici, la méthode est juste.
 
 Modèle physique simulé, pour chaque pixel et chaque image :

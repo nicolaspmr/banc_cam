@@ -1,5 +1,5 @@
 """
-module3_debit_qualite/debit_qualite.py — Courbe débit / qualité de l'encodeur H.264.
+module2_debit_qualite/debit_qualite.py — Courbe débit / qualité de l'encodeur H.264.
 
 Pour chaque débit cible (250, 500, 1000, 2000, 4000 kbit/s par défaut) :
   1. on POUSSE la séquence de référence dans un pipeline GStreamer grâce à `appsrc`
@@ -12,7 +12,7 @@ Vérification préalable (réflexe de métrologue) : on fait d'abord passer la s
 même pipeline SANS encodeur. Le PSNR doit être infini (images identiques) ; sinon, c'est la
 chaîne de mesure elle-même qui dégrade l'image, et toutes les valeurs seraient fausses.
 
-Lancement :  python3 -m module3_debit_qualite.debit_qualite --debits 250 500 1000 2000 4000
+Lancement :  python3 -m module2_debit_qualite.debit_qualite --debits 250 500 1000 2000 4000
 """
 
 import argparse
@@ -31,7 +31,7 @@ from gi.repository import Gst     # noqa: E402
 from commun import resultats      # noqa: E402
 
 Gst.init(None)
-MODULE = "module3_debit_qualite"
+MODULE = "module2_debit_qualite"
 FPS = 30
 
 
