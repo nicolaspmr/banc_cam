@@ -18,14 +18,12 @@ from commun import resultats
 # Titre lisible de chaque module, dans l'ordre de la fiche
 TITRES = {
     "module1_chaine": "Chaîne vidéo (cadence, gigue, pertes)",
-    "module2_debit_qualite": "Débit / qualité H.264",
-    "module3_bruit": "Bruit",
 }
 
 
 def formater(valeur):
     """Met une valeur en forme pour un tableau Markdown."""
-    if isinstance(valeur, list):            # ex. la liste des mesures du module 2
+    if isinstance(valeur, list):            # une liste de mesures
         return "voir détail"
     return str(valeur)
 
@@ -51,13 +49,6 @@ def main():
             for cle, val in r["valeurs"].items():
                 lignes.append(f"| {cle} | {formater(val)} |")
             lignes.append("")
-            # Détail spécial pour la courbe débit/qualité (liste de mesures)
-            if module == "module2_debit_qualite" and "mesures" in r["valeurs"]:
-                lignes += ["| Débit cible (kbit/s) | Débit réel (kbit/s) | PSNR moyen (dB) | SSIM |",
-                           "| --- | --- | --- | --- |"]
-                for m in r["valeurs"]["mesures"]:
-                    lignes.append(f"| {m['cible_kbits']} | {m['reel_kbits']} | {m['psnr_moyen_db']} | {m['ssim']} |")
-                lignes.append("")
 
     lignes += ["## Limites connues", "",
                "- La webcam applique un traitement interne (exposition auto, gamma, débruitage, MJPEG) : "
